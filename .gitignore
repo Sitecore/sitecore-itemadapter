@@ -194,3 +194,8 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+/source/Sitecore.ItemAdapter.Sample/data/logs
+/source/Sitecore.ItemAdapter.Sample/data/indexes/__system
+/source/Sitecore.ItemAdapter.Sample/App_Data/MediaCache/website
+/source/Sitecore.ItemAdapter.Sample/temp
+/source/Sitecore.ItemAdapter.Sample/default.css

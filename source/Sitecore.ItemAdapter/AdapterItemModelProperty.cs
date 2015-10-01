@@ -8,9 +8,9 @@ using Sitecore.ItemAdapter.FieldTypes;
 
 namespace Sitecore.ItemAdapter
 {
-    public class SitecoreItemModelProperty
+    internal class AdapterItemModelProperty
     {
-        public SitecoreItemModelProperty(PropertyInfo property, SitecoreFieldModelAttribute modelAttribute)
+        public AdapterItemModelProperty(PropertyInfo property, AdapterFieldAttribute modelAttribute)
         {
             PropertyInfo = property;
             this.FieldModelAttribute = modelAttribute;
@@ -20,6 +20,6 @@ namespace Sitecore.ItemAdapter
         {
             get; private set;
         }
-        public SitecoreFieldModelAttribute FieldModelAttribute { get; private set; }
+        public AdapterFieldAttribute FieldModelAttribute { get; private set; }
     }
 }

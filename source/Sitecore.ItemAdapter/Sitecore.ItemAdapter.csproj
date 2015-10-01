@@ -40,6 +40,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,19 +49,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdapterExtendedPropertyAttribute.cs" />
     <Compile Include="Extensions\AttributeExtensions.cs" />
-    <Compile Include="FieldTypes\SitecoreFieldModelAttribute.cs" />
-    <Compile Include="FieldTypes\SitecoreRichTextFieldAttribute.cs" />
-    <Compile Include="FieldTypes\SitecoreTextFieldAttribute.cs" />
-    <Compile Include="ItemAdapter.cs" />
-    <Compile Include="Model\ExtendedItem.cs" />
-    <Compile Include="Model\StandardItem.cs" />
-    <Compile Include="SitecoreItemModelAttribute.cs" />
+    <Compile Include="Extensions\ItemExtensions.cs" />
+    <Compile Include="FieldTypes\AdapterFileUrlFieldAttribute.cs" />
+    <Compile Include="FieldTypes\AdapterItemModelFieldAttribute.cs" />
+    <Compile Include="FieldTypes\AdapterNameLookupListFieldAttribute.cs" />
+    <Compile Include="FieldTypes\AdapterLinkFieldAttribute.cs" />
+    <Compile Include="FieldTypes\AdapterNameValueListFieldAttribute.cs" />
+    <Compile Include="FieldTypes\AdapterMultilistFieldAttribute.cs" />
+    <Compile Include="FieldTypes\AdapterGeneralLinkField.cs" />
+    <Compile Include="FieldTypes\AdapterNumberFieldAttribute.cs" />
+    <Compile Include="FieldTypes\AdapterIntegerFieldAttribute.cs" />
+    <Compile Include="FieldTypes\AdapterImageUrlFieldAttribute.cs" />
+    <Compile Include="FieldTypes\AdapterDateTimeFieldAttribute.cs" />
+    <Compile Include="FieldTypes\AdapterCheckboxFieldAttribute.cs" />
+    <Compile Include="FieldTypes\AdapterFieldAttribute.cs" />
+    <Compile Include="FieldTypes\AdapterRichTextFieldAttribute.cs" />
+    <Compile Include="FieldTypes\AdapterTextFieldAttribute.cs" />
+    <Compile Include="Model\GeneralLink.cs" />
+    <Compile Include="StandardItemAdapter.cs" />
+    <Compile Include="Model\AdapterItem.cs" />
+    <Compile Include="AdapterExtendedModelAttribute.cs" />
+    <Compile Include="AdapterItemModelAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SitecoreItemModelProperty.cs" />
+    <Compile Include="AdapterItemModelProperty.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ReadMe.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

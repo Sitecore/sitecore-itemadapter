@@ -9,17 +9,17 @@ namespace Sitecore.ItemAdapter
     using Sitecore.Data;
 
     [System.AttributeUsage(System.AttributeTargets.Class)]
-    public class SitecoreItemModelAttribute : Attribute
+    public class AdapterItemModelAttribute : Attribute
     {
         private readonly ID _templateId;
 
         public ID TemplateId { get { return _templateId; } }
 
-        public SitecoreItemModelAttribute()
+        public AdapterItemModelAttribute()
         {
         }
 
-        public SitecoreItemModelAttribute(string templateId) : base()
+        public AdapterItemModelAttribute(string templateId) : base()
         {
             _templateId = new ID(new Guid(templateId));
         }
