@@ -199,3 +199,16 @@ FakesAssemblies/
 /source/Sitecore.ItemAdapter.Sample/App_Data/MediaCache/website
 /source/Sitecore.ItemAdapter.Sample/temp
 /source/Sitecore.ItemAdapter.Sample/default.css
+/source/Sitecore.ItemAdapter.Sample/App_config
+/source/Sitecore.ItemAdapter.Sample/Content
+/source/Sitecore.ItemAdapter.Sample/data
+/source/Sitecore.ItemAdapter.Sample/fonts
+/source/Sitecore.ItemAdapter.Sample/Scripts
+/source/Sitecore.ItemAdapter.Sample/sitecore/shell
+/source/Sitecore.ItemAdapter.Sample/xsl
+/source/Sitecore.ItemAdapter.Sample/Layouts/xmlcontrol.aspx.resx
+/source/Sitecore.ItemAdapter.Sample/Layouts/xmlcontrol.aspx.cs
+/source/Sitecore.ItemAdapter.Sample/Layouts/xmlcontrol.aspx
+/source/Sitecore.ItemAdapter.Sample/Layouts/Sample Sublayout.ascx
+/source/Sitecore.ItemAdapter.Sample/Layouts/Sample layout.aspx
+/source/Sitecore.ItemAdapter.Sample/Layouts/Sample Inner Sublayout.ascx

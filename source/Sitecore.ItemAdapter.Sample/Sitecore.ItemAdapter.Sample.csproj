@@ -105,41 +105,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Site.css" />
-    <Content Include="data\license.xml" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Layouts\SampleItemControl.ascx" />
-    <Content Include="Layouts\Sample Inner Sublayout.ascx" />
-    <Content Include="Layouts\Sample layout.aspx" />
-    <Content Include="Layouts\Sample Sublayout.ascx" />
-    <Content Include="Layouts\xmlcontrol.aspx" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="App_config\XamlSharp.config" />
-    <Content Include="App_config\Sitecore.config" />
-    <Content Include="App_config\Security\GlobalRoles.config" />
-    <Content Include="App_config\Security\Domains.config" />
-    <Content Include="App_config\Prototypes.config" />
-    <Content Include="App_config\Prefetch\Webdb.config" />
-    <Content Include="App_config\Prefetch\Master.config" />
-    <Content Include="App_config\Prefetch\Core.config" />
-    <Content Include="App_config\Prefetch\Common.config" />
-    <Content Include="App_config\Portraits.config" />
-    <Content Include="App_config\MimeTypes.config" />
-    <Content Include="App_config\LanguageDefinitions.config" />
-    <Content Include="App_config\Icons.config" />
-    <Content Include="App_config\FieldTypes.config" />
-    <Content Include="App_config\ConnectionStrings.config" />
-    <Content Include="App_config\Commands.config" />
-    <Content Include="xsl\sample rendering.xslt" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="sitecore\shell\sitecore.version.xml" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -147,29 +114,16 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\SampleItem.cs" />
-    <Compile Include="Layouts\xmlcontrol.aspx.cs">
-      <DependentUpon>xmlcontrol.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Layouts\xmlcontrol.aspx.resx">
-      <DependentUpon>xmlcontrol.aspx.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sitecore.ItemAdapter\Sitecore.ItemAdapter.csproj">
