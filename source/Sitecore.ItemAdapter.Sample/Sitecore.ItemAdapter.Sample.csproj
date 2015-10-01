@@ -107,6 +107,7 @@
   <ItemGroup>
     <Content Include="Global.asax" />
     <Content Include="Layouts\SampleItemControl.ascx" />
+    <Content Include="ReadMe.txt" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
