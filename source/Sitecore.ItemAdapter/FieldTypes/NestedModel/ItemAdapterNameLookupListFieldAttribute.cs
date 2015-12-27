@@ -22,7 +22,7 @@ namespace Sitecore.ItemAdapter.FieldTypes.NestedModel
             SortedList<string, IItemAdapterModel> result = new SortedList<string, IItemAdapterModel>();
             foreach (var kvp in items)
             {
-                result.Add(kvp.Key, (IItemAdapterModel)GetModel(kvp.Value, AdapterType));
+                result.Add(kvp.Key, (IItemAdapterModel)GetModel(kvp.Value, ModelType));
             }
             return result;
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 using Sitecore.Data.Items;
 using Sitecore.ItemAdapter.Model;
 
@@ -10,18 +11,18 @@ namespace Sitecore.ItemAdapter.FieldTypes.NestedModel
 {
     public abstract class ItemAdapterNestedModelFieldAttribute : ItemAdapterFieldAttribute
     {
-        protected Type AdapterType { get; private set; }
+        public Type ModelType { get; private set; }
  
         protected IItemAdapter Adapter { get; set; } 
 
-        protected ItemAdapterNestedModelFieldAttribute(string fieldId, Type adapterType) : base(fieldId)
+        protected ItemAdapterNestedModelFieldAttribute(string fieldId, Type modelType) : base(fieldId)
         {
-            AdapterType = adapterType;
+            ModelType = modelType;
         }
 
-        public void InitItemAdapter(Type itemAdapter)
+        public void InitItemAdapter(IItemAdapter itemAdapter)
         {
-            Adapter = (IItemAdapter)Activator.CreateInstance(itemAdapter.MakeGenericType(AdapterType));
+            Adapter = itemAdapter;
         }
 
         protected virtual IItemAdapterModel GetModel(Item item, Type propertyType)

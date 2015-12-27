@@ -53,15 +53,15 @@ namespace Sitecore.ItemAdapter.Sample.Models
 
         [ItemAdapterExtendedProperty]
         [ItemAdapterLinkField("{340D1B43-ECA6-4567-8B02-500C01ADBE02}", typeof(ItemAdapterModel))]
-        public IItemAdapterModel Link { get; set; }
+        public ItemAdapterModel Link { get; set; }
 
         [ItemAdapterExtendedProperty]
         [ItemAdapterMultilistField("{44B8C8E0-D6E7-44BF-BC3F-3BDDEAD90A74}", typeof(ItemAdapterModel))]
-        public List<IItemAdapterModel> MultiList { get; set; }
+        public List<ItemAdapterModel> MultiList { get; set; }
 
         [ItemAdapterExtendedProperty]
         [ItemAdapterMultilistField("{E5DE474C-04CB-41F8-B5F8-3C171EE5E8FE}", typeof(ItemAdapterModel))]
-        public List<IItemAdapterModel> Checklist { get; set; }
+        public List<ItemAdapterModel> Checklist { get; set; }
 
         [ItemAdapterExtendedProperty]
         [ItemAdapterFileUrlField("{A71C0579-8E0D-4658-92C9-03A7A260F383}")]

@@ -18,15 +18,20 @@ namespace Sitecore.ItemAdapter
     public interface IItemAdapter
     {
         IItemAdapterModel GetModel(Item item);
-        //object GetExtendedModel(Item item);
-        //void GetChildren(object model, Item item);
-        //IEnumerable<object> GetEnumerator(Data.Items.Item[] items);
+    }
+    
+    internal static class StandardItemAdapter
+    {
+        public static IItemAdapter CreateInstance(Type modelType)
+        {
+            return (IItemAdapter) Activator.CreateInstance(typeof(StandardItemAdapter<>).MakeGenericType(modelType));
+        }
     }
 
     public class StandardItemAdapter<TModel> : IItemAdapter
         where TModel : IItemAdapterModel, new()
     {
-        private StandardItemAdapter()
+        public StandardItemAdapter()
         {
         }
         
@@ -92,8 +97,7 @@ namespace Sitecore.ItemAdapter
 
         private static IItemAdapter GetChildItemAdapter()
         {
-            return (IItemAdapter)
-                Activator.CreateInstance(typeof(StandardItemAdapter<>).MakeGenericType(_modelAttribute.ChildType));
+            return StandardItemAdapter.CreateInstance(_modelAttribute.ChildType);
         }
 
         private static void LoadPropertyNestedItemAdapters(ItemAdapterModelProperty[] properties)
@@ -103,7 +107,7 @@ namespace Sitecore.ItemAdapter
                 ItemAdapterNestedModelFieldAttribute attribute = (ItemAdapterNestedModelFieldAttribute)property.FieldModelAttribute;
                 if (attribute != null)
                 {
-                    attribute.InitItemAdapter(typeof (StandardItemAdapter<>));
+                    attribute.InitItemAdapter(StandardItemAdapter.CreateInstance(attribute.ModelType));
                 }
             }
         }
