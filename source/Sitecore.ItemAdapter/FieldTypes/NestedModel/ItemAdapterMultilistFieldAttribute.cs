@@ -5,9 +5,9 @@ using Sitecore.Data.Items;
 using Sitecore.ItemAdapter.Extensions;
 using Sitecore.ItemAdapter.Model;
 
-namespace Sitecore.ItemAdapter.FieldTypes.NestedAdapter
+namespace Sitecore.ItemAdapter.FieldTypes.NestedModel
 {
-    public class ItemAdapterMultilistFieldAttribute : ItemAdapterNestedAdapterFieldAttribute
+    public class ItemAdapterMultilistFieldAttribute : ItemAdapterNestedModelFieldAttribute
     {
         public ItemAdapterMultilistFieldAttribute(string fieldId, Type modelType) : base(fieldId, modelType)
         {

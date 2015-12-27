@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.VisualStyles;
-using Sitecore.ItemAdapter.FieldTypes.NestedAdapter;
+using Sitecore.ItemAdapter.FieldTypes.NestedModel;
 using Sitecore.ItemAdapter.Model;
 
 namespace Sitecore.ItemAdapter
@@ -100,7 +100,7 @@ namespace Sitecore.ItemAdapter
         {
             foreach (ItemAdapterModelProperty property in properties)
             {
-                ItemAdapterNestedAdapterFieldAttribute attribute = (ItemAdapterNestedAdapterFieldAttribute)property.FieldModelAttribute;
+                ItemAdapterNestedModelFieldAttribute attribute = (ItemAdapterNestedModelFieldAttribute)property.FieldModelAttribute;
                 if (attribute != null)
                 {
                     attribute.InitItemAdapter(typeof (StandardItemAdapter<>));

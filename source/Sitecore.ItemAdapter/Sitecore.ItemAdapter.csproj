@@ -49,14 +49,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FieldTypes\NestedAdapter\ItemAdapterMultilistFieldAttribute.cs" />
-    <Compile Include="FieldTypes\NestedAdapter\ItemAdapterNameLookupListFieldAttribute.cs" />
-    <Compile Include="FieldTypes\NestedAdapter\ItemAdapterNestedAdapterFieldAttribute.cs" />
+    <Compile Include="FieldTypes\NestedModel\ItemAdapterMultilistFieldAttribute.cs" />
+    <Compile Include="FieldTypes\NestedModel\ItemAdapterNameLookupListFieldAttribute.cs" />
+    <Compile Include="FieldTypes\NestedModel\ItemAdapterNestedModelFieldAttribute.cs" />
     <Compile Include="ItemAdapterExtendedPropertyAttribute.cs" />
     <Compile Include="Extensions\AttributeExtensions.cs" />
     <Compile Include="Extensions\ItemExtensions.cs" />
     <Compile Include="FieldTypes\ItemAdapterFileUrlFieldAttribute.cs" />
-    <Compile Include="FieldTypes\NestedAdapter\ItemAdapterLinkFieldAttribute.cs" />
+    <Compile Include="FieldTypes\NestedModel\ItemAdapterLinkFieldAttribute.cs" />
     <Compile Include="FieldTypes\ItemAdapterNameValueListFieldAttribute.cs" />
     <Compile Include="FieldTypes\ItemAdapterGeneralLinkField.cs" />
     <Compile Include="FieldTypes\ItemAdapterNumberFieldAttribute.cs" />

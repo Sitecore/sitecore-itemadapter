@@ -8,9 +8,9 @@ using Sitecore.Data.Items;
 using Sitecore.ItemAdapter.Extensions;
 using Sitecore.ItemAdapter.Model;
 
-namespace Sitecore.ItemAdapter.FieldTypes.NestedAdapter
+namespace Sitecore.ItemAdapter.FieldTypes.NestedModel
 {
-    public class ItemAdapterNameLookupListFieldAttribute : ItemAdapterNestedAdapterFieldAttribute
+    public class ItemAdapterNameLookupListFieldAttribute : ItemAdapterNestedModelFieldAttribute
     {
         public ItemAdapterNameLookupListFieldAttribute(string fieldId, Type adapterType) : base(fieldId, adapterType)
         {

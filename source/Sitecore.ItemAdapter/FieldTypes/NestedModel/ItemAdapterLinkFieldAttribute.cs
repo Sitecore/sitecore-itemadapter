@@ -7,9 +7,9 @@ using Sitecore.Data.Items;
 using Sitecore.ItemAdapter.Extensions;
 using Sitecore.ItemAdapter.Model;
 
-namespace Sitecore.ItemAdapter.FieldTypes.NestedAdapter
+namespace Sitecore.ItemAdapter.FieldTypes.NestedModel
 {
-    public class ItemAdapterLinkFieldAttribute : ItemAdapterNestedAdapterFieldAttribute
+    public class ItemAdapterLinkFieldAttribute : ItemAdapterNestedModelFieldAttribute
     {
         public ItemAdapterLinkFieldAttribute(string fieldId, Type modelType) : base(fieldId, modelType)
         {

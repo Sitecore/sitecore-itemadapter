@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 using Sitecore.Data.Items;
 using Sitecore.ItemAdapter.Model;
 
-namespace Sitecore.ItemAdapter.FieldTypes.NestedAdapter
+namespace Sitecore.ItemAdapter.FieldTypes.NestedModel
 {
-    public abstract class ItemAdapterNestedAdapterFieldAttribute : ItemAdapterFieldAttribute
+    public abstract class ItemAdapterNestedModelFieldAttribute : ItemAdapterFieldAttribute
     {
         protected Type AdapterType { get; private set; }
  
         protected IItemAdapter Adapter { get; set; } 
 
-        protected ItemAdapterNestedAdapterFieldAttribute(string fieldId, Type adapterType) : base(fieldId)
+        protected ItemAdapterNestedModelFieldAttribute(string fieldId, Type adapterType) : base(fieldId)
         {
             AdapterType = adapterType;
         }
@@ -31,7 +31,7 @@ namespace Sitecore.ItemAdapter.FieldTypes.NestedAdapter
         
         public override bool CheckType(Type propertyType)
         {
-            if (propertyType == typeof(IItemAdapterModel))
+            if (propertyType == ExpectedType())
             {
                 return true;
             }
@@ -43,7 +43,7 @@ namespace Sitecore.ItemAdapter.FieldTypes.NestedAdapter
 
         public override Type ExpectedType()
         {
-            return typeof(ItemAdapterModel);
+            return typeof(IItemAdapterModel);
         }
 
 
