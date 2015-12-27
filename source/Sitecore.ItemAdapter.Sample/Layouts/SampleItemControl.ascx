@@ -9,11 +9,16 @@
  <script runat="server">
      protected SampleItem ItemModel { get; set; }
 
+     void Page_Init(object sender, System.EventArgs e)
+     {
+         
+     }
+
      void Page_Load(object sender, System.EventArgs e)
      {
          ItemModel = StandardItemAdapter<SampleItem>.GetExtendedModel(Sitecore.Context.Item);
      }
-     
+
  </script>
 
 <div>
@@ -31,35 +36,37 @@
     <div>Number: <%= ItemModel.Number.ToString() %></div>
 
     <div>General Link: <%= ItemModel.GeneralLink != null ? ItemModel.GeneralLink.Url : string.Empty %></div>
+
     <div>Link: <%= ItemModel.Link != null ? ItemModel.Link.Name : string.Empty %></div>
-    <div>
+    
+    <%--<div>
         Multi-list (<%= ItemModel.MultiList.Count %>): <br/>
-        <%  foreach (AdapterItem adapterItem in ItemModel.MultiList) { %>
+        <%  foreach (IItemAdapterModel adapterItem in ItemModel.MultiList) { %>
             <%= adapterItem.Name %> <br/>     
         <% } %>
-    </div>
+    </div>--%>
                 
     <div>File: <%= ItemModel.FileUrl  %></div>
 
-    <div>
+<%--    <div>
         Checklist (<%= ItemModel.Checklist.Count %>): <br/>
-        <%  foreach (AdapterItem adapterItem in ItemModel.Checklist) { %>
+        <%  foreach (IItemAdapterModel adapterItem in ItemModel.Checklist) { %>
             <%= adapterItem.Name %> <br/>     
         <% } %>
-    </div>
+    </div>--%>
                 
-    <div>
+    <%--<div>
         NameValueList (<%= ItemModel.NameValueList.Count %>): <br/>
         <%  foreach (KeyValuePair<string,string> kvp in ItemModel.NameValueList) { %>
             Key: <%= kvp.Key %>, Value: <%= kvp.Value %>  <br/>     
         <% } %>
-    </div>
+    </div>--%>
                 
-    <div>
+    <%--<div>
         NameLookupList (<%= ItemModel.NameLookupList.Count %>): <br/>
-        <%  foreach (KeyValuePair<string,AdapterItem> kvp in ItemModel.NameLookupList) { %>
+        <%  foreach (KeyValuePair<string,IItemAdapterModel> kvp in ItemModel.NameLookupList) { %>
             Key: <%= kvp.Key %>, Value: <%= kvp.Value != null ? kvp.Value.Name : string.Empty %>  <br/>     
         <% } %>
-    </div>
+    </div>--%>
 
 </div>

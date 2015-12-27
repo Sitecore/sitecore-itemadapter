@@ -177,7 +177,7 @@ namespace Sitecore.ItemAdapter.Extensions
             }
         }
 
-        static public GeneralLink GetGeneralLinkFieldValue(this Item item, ID fieldId)
+        static public IGeneralLink GetGeneralLinkFieldValue(this Item item, ID fieldId)
         {
             LinkField f = ((LinkField)GetField(item, fieldId));
             if (f != null && f.IsInternal && f.TargetItem != null)

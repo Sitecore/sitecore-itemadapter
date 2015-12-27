@@ -49,31 +49,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdapterExtendedPropertyAttribute.cs" />
+    <Compile Include="FieldTypes\NestedAdapter\ItemAdapterMultilistFieldAttribute.cs" />
+    <Compile Include="FieldTypes\NestedAdapter\ItemAdapterNameLookupListFieldAttribute.cs" />
+    <Compile Include="FieldTypes\NestedAdapter\ItemAdapterNestedAdapterFieldAttribute.cs" />
+    <Compile Include="ItemAdapterExtendedPropertyAttribute.cs" />
     <Compile Include="Extensions\AttributeExtensions.cs" />
     <Compile Include="Extensions\ItemExtensions.cs" />
-    <Compile Include="FieldTypes\AdapterFileUrlFieldAttribute.cs" />
-    <Compile Include="FieldTypes\AdapterItemModelFieldAttribute.cs" />
-    <Compile Include="FieldTypes\AdapterNameLookupListFieldAttribute.cs" />
-    <Compile Include="FieldTypes\AdapterLinkFieldAttribute.cs" />
-    <Compile Include="FieldTypes\AdapterNameValueListFieldAttribute.cs" />
-    <Compile Include="FieldTypes\AdapterMultilistFieldAttribute.cs" />
-    <Compile Include="FieldTypes\AdapterGeneralLinkField.cs" />
-    <Compile Include="FieldTypes\AdapterNumberFieldAttribute.cs" />
-    <Compile Include="FieldTypes\AdapterIntegerFieldAttribute.cs" />
-    <Compile Include="FieldTypes\AdapterImageUrlFieldAttribute.cs" />
-    <Compile Include="FieldTypes\AdapterDateTimeFieldAttribute.cs" />
-    <Compile Include="FieldTypes\AdapterCheckboxFieldAttribute.cs" />
-    <Compile Include="FieldTypes\AdapterFieldAttribute.cs" />
-    <Compile Include="FieldTypes\AdapterRichTextFieldAttribute.cs" />
-    <Compile Include="FieldTypes\AdapterTextFieldAttribute.cs" />
+    <Compile Include="FieldTypes\ItemAdapterFileUrlFieldAttribute.cs" />
+    <Compile Include="FieldTypes\NestedAdapter\ItemAdapterLinkFieldAttribute.cs" />
+    <Compile Include="FieldTypes\ItemAdapterNameValueListFieldAttribute.cs" />
+    <Compile Include="FieldTypes\ItemAdapterGeneralLinkField.cs" />
+    <Compile Include="FieldTypes\ItemAdapterNumberFieldAttribute.cs" />
+    <Compile Include="FieldTypes\ItemAdapterIntegerFieldAttribute.cs" />
+    <Compile Include="FieldTypes\ItemAdapterImageUrlFieldAttribute.cs" />
+    <Compile Include="FieldTypes\ItemAdapterDateTimeFieldAttribute.cs" />
+    <Compile Include="FieldTypes\ItemAdapterCheckboxFieldAttribute.cs" />
+    <Compile Include="FieldTypes\ItemAdapterFieldAttribute.cs" />
+    <Compile Include="FieldTypes\ItemAdapterRichTextFieldAttribute.cs" />
+    <Compile Include="FieldTypes\ItemAdapterTextFieldAttribute.cs" />
     <Compile Include="Model\GeneralLink.cs" />
+    <Compile Include="Model\IItemAdapterModel.cs" />
+    <Compile Include="Model\IGeneralLink.cs" />
     <Compile Include="StandardItemAdapter.cs" />
-    <Compile Include="Model\AdapterItem.cs" />
-    <Compile Include="AdapterExtendedModelAttribute.cs" />
-    <Compile Include="AdapterItemModelAttribute.cs" />
+    <Compile Include="Model\ItemAdapterModel.cs" />
+    <Compile Include="ItemAdapterExtendedModelAttribute.cs" />
+    <Compile Include="ItemAdapterModelAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="AdapterItemModelProperty.cs" />
+    <Compile Include="ItemAdapterModelProperty.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

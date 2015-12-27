@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sitecore.ItemAdapter.Model
 {
-    public class GeneralLink
+    public class GeneralLink : IGeneralLink
     {
         public string Text { get; set; }
 
