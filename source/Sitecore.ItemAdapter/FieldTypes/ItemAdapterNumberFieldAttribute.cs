@@ -14,7 +14,7 @@ namespace Sitecore.ItemAdapter.FieldTypes
         {
         }
 
-        protected override object GetValue(Item item, Type propertyType)
+        protected override object GetValue(Item item, Type propertyType, int depth)
         {
             return new Nullable<Decimal>(item.GetDecimalFieldValue(FieldId));
         }
@@ -39,7 +39,7 @@ namespace Sitecore.ItemAdapter.FieldTypes
             return typeof (Nullable<Decimal>);
         }
 
-        internal override object SetFieldValue(Item item, Type propertyType, object propertyValue)
+        protected override object SetValue(Item item, Type propertyType, object propertyValue)
         {
             throw new NotImplementedException();
         }

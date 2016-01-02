@@ -13,11 +13,11 @@ namespace Sitecore.ItemAdapter.FieldTypes.NestedModel
         {
         }
 
-        protected override object GetValue(Item item, Type propertyType)
+        protected override object GetValue(Item item, Type propertyType, int depth)
         {
             Item[] items = item.GetListItems(FieldId).ToArray();
             List<IItemAdapterModel> result = items.Select(
-                (child) => GetModel(child, propertyType)).ToList();
+                (child) => GetModel(child, propertyType, depth)).ToList();
             if (propertyType.IsArray)
             {
                 return result.ToArray();
@@ -64,7 +64,7 @@ namespace Sitecore.ItemAdapter.FieldTypes.NestedModel
             return false;
         }
 
-        internal override object SetFieldValue(Item item, Type propertyType, object propertyValue)
+        protected override object SetValue(Item item, Type propertyType, object propertyValue)
         {
             throw new NotImplementedException();
         }

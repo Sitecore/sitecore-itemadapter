@@ -14,7 +14,7 @@ namespace Sitecore.ItemAdapter.FieldTypes
         {
         }
 
-        protected override object GetValue(Item item, Type propertyType)
+        protected override object GetValue(Item item, Type propertyType, int depth)
         {
             return item.GetRichTextContent(FieldId);
         }

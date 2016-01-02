@@ -15,10 +15,6 @@ namespace Sitecore.ItemAdapter
     using Sitecore.Data.Items;
     using Sitecore.ItemAdapter.FieldTypes;
 
-    public interface IItemAdapter
-    {
-        IItemAdapterModel GetModel(Item item);
-    }
     
     internal static class StandardItemAdapter
     {
@@ -40,9 +36,14 @@ namespace Sitecore.ItemAdapter
             return new StandardItemAdapter<TModel>();
         }
 
-        public IItemAdapterModel GetModel(Item item)
+        public IItemAdapterModel GetModel(Item item, int depth)
         {
-            return GetNewModel(item);
+            if (depth < 1)
+            {
+                TModel result = new TModel();
+                result.SetId(item.ID.ToGuid());
+            }
+            return GetNewModel(item, depth);
         }
         
         private static readonly ItemAdapterModelAttribute _modelAttribute;
@@ -130,7 +131,7 @@ namespace Sitecore.ItemAdapter
             }
         }
 
-        public static TModel GetNewModel(Item item)
+        public static TModel GetNewModel(Item item, int depth)
         {
             if (_modelAttribute.TemplateId != (ID)null && !_modelAttribute.TemplateId.Equals(item.TemplateID))
             {
@@ -141,34 +142,37 @@ namespace Sitecore.ItemAdapter
             result.SetId(item.ID.ToGuid());
 
             SetStandardProperties(result, item);
-
+            
             foreach (ItemAdapterModelProperty property in _properties)
             {
                 object fieldValue = property.FieldModelAttribute.GetFieldValue(
                     item,
-                    property.PropertyInfo.PropertyType);
+                    property.PropertyInfo.PropertyType,
+                    depth);
 
                 property.PropertyInfo.SetValue(result, fieldValue, null); 
             }
+
+            result.Loaded();
             return result;
         }
 
-        public static TModel GetExtendedModel(Item item)
+        public static TModel GetExtendedModel(Item item, int depth)
         {
-            TModel model = GetNewModel(item);
-            GetExtendedModel(model, item);
-            GetChildren(model, item);
+            TModel model = GetNewModel(item, depth);
+            GetExtendedModel(model, item, depth);
+            GetChildren(model, item, depth);
             return model;
         }
 
-        public static void GetExtendedModel(TModel model, Item item)
+        public static void GetExtendedModel(TModel model, Item item, int depth)
         {
-            SetExtendedProperties(model, item);
+            SetExtendedProperties(model, item, depth);
         }
 
-        public static void GetChildren(TModel model, Item item)
+        public static void GetChildren(TModel model, Item item, int depth)
         {
-            SetChildrenProperty(model, item);
+            SetChildrenProperty(model, item, depth);
         }
 
         public static void SaveModel(TModel model, Item item)
@@ -189,7 +193,7 @@ namespace Sitecore.ItemAdapter
             item.Editing.EndEdit();
         }
 
-        private static void SetChildrenProperty(TModel result, Item item)
+        private static void SetChildrenProperty(TModel result, Item item, int depth)
         {
             if (result == null)
             {
@@ -200,7 +204,7 @@ namespace Sitecore.ItemAdapter
             Item[] itemChildren = item.GetChildren().ToArray();
             foreach (Item child in itemChildren)
             {
-                modelChildren.Add(_childItemAdapter.GetModel(child));
+                modelChildren.Add(_childItemAdapter.GetModel(child, --depth));
             }
 
             result.Children = modelChildren;
@@ -215,7 +219,7 @@ namespace Sitecore.ItemAdapter
             result.DisplayName = item.Appearance.DisplayName;
         }
 
-        private static void SetExtendedProperties(TModel result, Item item)
+        private static void SetExtendedProperties(TModel result, Item item, int depth)
         {
             if (result == null)
             {
@@ -224,7 +228,7 @@ namespace Sitecore.ItemAdapter
 
             foreach (ItemAdapterModelProperty property in _extendedProperties)
             {
-                property.PropertyInfo.SetValue(result, property.FieldModelAttribute.GetFieldValue(item, property.PropertyInfo.PropertyType), null);
+                property.PropertyInfo.SetValue(result, property.FieldModelAttribute.GetFieldValue(item, property.PropertyInfo.PropertyType, depth), null);
             }
         }
 

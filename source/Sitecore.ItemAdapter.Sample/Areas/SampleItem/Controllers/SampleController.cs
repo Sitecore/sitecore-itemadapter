@@ -25,37 +25,10 @@ namespace Sitecore.ItemAdapter.Sample.Areas.SampleItem.Controllers
         public ActionResult Details(Guid id)
         {
             Sitecore.Data.Items.Item item = Context.Database.GetItem(new ID(id));
-            var sampleItem = StandardItemAdapter<Models.SampleItem>.GetExtendedModel(item);
+            var sampleItem = StandardItemAdapter<Models.SampleItem>.GetExtendedModel(item, 1);
             return Json(sampleItem, JsonRequestBehavior.AllowGet);
         }
 
-        // GET: SampleItem/Sitecore/Create
-        public ActionResult Create()
-        {
-            throw new NotImplementedException();
-        }
-
-        // POST: SampleItem/Sitecore/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                throw new NotImplementedException();
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        // GET: SampleItem/Sitecore/Edit/5
-        public ActionResult Edit(Guid id)
-        {
-            throw new NotImplementedException();
-        }
 
         // POST: SampleItem/Sitecore/Edit/5
         [HttpPost]
@@ -64,7 +37,7 @@ namespace Sitecore.ItemAdapter.Sample.Areas.SampleItem.Controllers
             try
             {
                 Sitecore.Data.Items.Item item = Context.Database.GetItem(new ID(id));
-                var sampleItem = StandardItemAdapter<Models.SampleItem>.GetExtendedModel(item);
+                var sampleItem = StandardItemAdapter<Models.SampleItem>.GetExtendedModel(item, 1);
                 var updateItem = new Models.SampleItem();
                 updateItem.SetId(id);
 
@@ -92,7 +65,7 @@ namespace Sitecore.ItemAdapter.Sample.Areas.SampleItem.Controllers
         public ActionResult EditModel(Guid id, [System.Web.Http.FromBody]Models.SampleItem model)
         {
             Sitecore.Data.Items.Item item = Context.Database.GetItem(new ID(id));
-            var sampleItem = StandardItemAdapter<Models.SampleItem>.GetExtendedModel(item);
+            var sampleItem = StandardItemAdapter<Models.SampleItem>.GetExtendedModel(item, 1);
             var updateItem = new Models.SampleItem();
             updateItem.SetId(id);
 
@@ -108,6 +81,35 @@ namespace Sitecore.ItemAdapter.Sample.Areas.SampleItem.Controllers
             StandardItemAdapter<Models.SampleItem>.SaveModel(updateItem, item);
 
             return RedirectToAction("Details", new { @id = id });
+        }
+
+
+        // GET: SampleItem/Sitecore/Create
+        public ActionResult Create()
+        {
+            throw new NotImplementedException();
+        }
+
+        // POST: SampleItem/Sitecore/Create
+        [HttpPost]
+        public ActionResult Create(FormCollection collection)
+        {
+            try
+            {
+                throw new NotImplementedException();
+
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        // GET: SampleItem/Sitecore/Edit/5
+        public ActionResult Edit(Guid id)
+        {
+            throw new NotImplementedException();
         }
 
         // GET: SampleItem/Sitecore/Delete/5

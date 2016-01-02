@@ -52,6 +52,7 @@
     <Compile Include="FieldTypes\NestedModel\ItemAdapterMultilistFieldAttribute.cs" />
     <Compile Include="FieldTypes\NestedModel\ItemAdapterNameLookupListFieldAttribute.cs" />
     <Compile Include="FieldTypes\NestedModel\ItemAdapterNestedModelFieldAttribute.cs" />
+    <Compile Include="IItemAdapter.cs" />
     <Compile Include="ItemAdapterExtendedPropertyAttribute.cs" />
     <Compile Include="Extensions\AttributeExtensions.cs" />
     <Compile Include="Extensions\ItemExtensions.cs" />

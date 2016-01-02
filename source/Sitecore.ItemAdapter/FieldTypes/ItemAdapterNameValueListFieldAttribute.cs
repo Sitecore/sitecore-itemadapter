@@ -15,7 +15,7 @@ namespace Sitecore.ItemAdapter.FieldTypes
         {
         }
 
-        protected override object GetValue(Item item, Type propertyType)
+        protected override object GetValue(Item item, Type propertyType, int depth)
         {
             SortedList<string,string> result = item.GetNameValueList(FieldId);
             return result;
@@ -38,7 +38,7 @@ namespace Sitecore.ItemAdapter.FieldTypes
             return typeof(SortedList<string, string>);
         }
 
-        internal override object SetFieldValue(Item item, Type propertyType, object propertyValue)
+        protected override object SetValue(Item item, Type propertyType, object propertyValue)
         {
             throw new NotImplementedException();
         }

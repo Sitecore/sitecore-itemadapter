@@ -16,13 +16,13 @@ namespace Sitecore.ItemAdapter.FieldTypes.NestedModel
         {
         }
 
-        protected override object GetValue(Item item, Type propertyType)
+        protected override object GetValue(Item item, Type propertyType, int depth)
         {
             SortedList<string,Item> items = item.GetNameLookupList(FieldId);
             SortedList<string, IItemAdapterModel> result = new SortedList<string, IItemAdapterModel>();
             foreach (var kvp in items)
             {
-                result.Add(kvp.Key, (IItemAdapterModel)GetModel(kvp.Value, NestedModelType));
+                result.Add(kvp.Key, (IItemAdapterModel)GetModel(kvp.Value, NestedModelType, depth));
             }
             return result;
         }
@@ -45,7 +45,7 @@ namespace Sitecore.ItemAdapter.FieldTypes.NestedModel
             return false;
         }
 
-        internal override object SetFieldValue(Item item, Type propertyType, object propertyValue)
+        protected override object SetValue(Item item, Type propertyType, object propertyValue)
         {
             throw new NotImplementedException();
         }

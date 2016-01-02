@@ -24,17 +24,26 @@ namespace Sitecore.ItemAdapter.FieldTypes
             _fieldId = new ID(new Guid(fieldId));
         }
 
-        protected abstract object GetValue(Item item, Type propertyType);
 
-        internal object GetFieldValue(Item item, Type propertyType)
+        internal object GetFieldValue(Item item, Type propertyType, int depth)
         {
-            return GetValue(item, propertyType);
+            return GetValue(item, propertyType, depth);
+        }
+
+        internal object SetFieldValue(Item item, Type propertyType, object propertyValue)
+        {
+            return SetValue(item, propertyType, propertyValue);
         }
         
         public abstract bool CheckType(Type propertyType);
 
         public abstract Type ExpectedType();
-        internal abstract object SetFieldValue(Item item, Type propertyType, object propertyValue);
+
+        protected abstract object SetValue(Item item, Type propertyType, object propertyValue);
+
+        protected abstract object GetValue(Item item, Type propertyType, int depth);
+
+
     }
 
     

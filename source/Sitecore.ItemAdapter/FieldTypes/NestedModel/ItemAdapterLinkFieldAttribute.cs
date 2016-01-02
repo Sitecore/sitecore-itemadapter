@@ -15,18 +15,18 @@ namespace Sitecore.ItemAdapter.FieldTypes.NestedModel
         {
         }
 
-        protected override object GetValue(Item item, Type propertyType)
+        protected override object GetValue(Item item, Type propertyType, int depth)
         {
             Item link = item.GetInternalLinkItem(FieldId);
             if (link == null)
             {
                 return null;
             }
-            return GetModel(link, propertyType);
+            return GetModel(link, propertyType, depth);
 
         }
 
-        internal override object SetFieldValue(Item item, Type propertyType, object propertyValue)
+        protected override object SetValue(Item item, Type propertyType, object propertyValue)
         {
             throw new NotImplementedException();
         }
