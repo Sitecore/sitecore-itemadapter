@@ -38,5 +38,10 @@ namespace Sitecore.ItemAdapter.FieldTypes
         {
             return typeof (Nullable<Decimal>);
         }
+
+        internal override object SetFieldValue(Item item, Type propertyType, object propertyValue)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

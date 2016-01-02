@@ -11,13 +11,13 @@ namespace Sitecore.ItemAdapter.FieldTypes.NestedModel
 {
     public abstract class ItemAdapterNestedModelFieldAttribute : ItemAdapterFieldAttribute
     {
-        public Type ModelType { get; private set; }
+        public Type NestedModelType { get; private set; }
  
         protected IItemAdapter Adapter { get; set; } 
 
-        protected ItemAdapterNestedModelFieldAttribute(string fieldId, Type modelType) : base(fieldId)
+        protected ItemAdapterNestedModelFieldAttribute(string fieldId, Type nestedModelType) : base(fieldId)
         {
-            ModelType = modelType;
+            NestedModelType = nestedModelType;
         }
 
         public void InitItemAdapter(IItemAdapter itemAdapter)
@@ -32,7 +32,8 @@ namespace Sitecore.ItemAdapter.FieldTypes.NestedModel
         
         public override bool CheckType(Type propertyType)
         {
-            if (propertyType == ExpectedType())
+            if (propertyType.GetInterfaces().Any(i => i == ExpectedInterface())
+                && propertyType == ExpectedType())
             {
                 return true;
             }
@@ -43,6 +44,11 @@ namespace Sitecore.ItemAdapter.FieldTypes.NestedModel
         }
 
         public override Type ExpectedType()
+        {
+            return NestedModelType;
+        }
+
+        public virtual Type ExpectedInterface()
         {
             return typeof(IItemAdapterModel);
         }

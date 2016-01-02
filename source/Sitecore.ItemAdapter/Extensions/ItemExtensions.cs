@@ -293,9 +293,11 @@ namespace Sitecore.ItemAdapter.Extensions
             Sitecore.Data.Fields.MultilistField mlf = GetField(item, fieldId);
 
             if (mlf != null && mlf.Count > 0)
+            {
                 return mlf.GetItems().ToList();
-            else
-                return null;
+            }
+
+            return new List<Item>();
         }
 
         static public SortedList<string, string> GetNameValueList(this Item item, ID fieldId)

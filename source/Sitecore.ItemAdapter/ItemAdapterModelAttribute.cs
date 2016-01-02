@@ -19,7 +19,7 @@ namespace Sitecore.ItemAdapter
 
         public Type ChildType { get { return _childType; } }
 
-        public ItemAdapterModelAttribute(Type childModelType) : this(null, childModelType)
+        public ItemAdapterModelAttribute(Type childModelType) : this(string.Empty, childModelType)
         {
         }
 
@@ -29,7 +29,14 @@ namespace Sitecore.ItemAdapter
 
         public ItemAdapterModelAttribute(string templateId, Type childModelType) : base()
         {
-            _templateId = new ID(new Guid(templateId));
+            if (!string.IsNullOrEmpty(templateId))
+            {
+                _templateId = new ID(new Guid(templateId));
+            }
+            else
+            {
+                _templateId = new ID(Guid.Empty);
+            }
             _childType = childModelType;
         }
 

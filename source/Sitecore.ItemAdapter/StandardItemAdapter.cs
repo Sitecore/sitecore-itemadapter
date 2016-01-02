@@ -102,12 +102,13 @@ namespace Sitecore.ItemAdapter
 
         private static void LoadPropertyNestedItemAdapters(ItemAdapterModelProperty[] properties)
         {
-            foreach (ItemAdapterModelProperty property in properties)
+            var modelProperties = properties.Where(p => p.FieldModelAttribute is ItemAdapterNestedModelFieldAttribute);
+            foreach (ItemAdapterModelProperty property in modelProperties)
             {
                 ItemAdapterNestedModelFieldAttribute attribute = (ItemAdapterNestedModelFieldAttribute)property.FieldModelAttribute;
                 if (attribute != null)
                 {
-                    attribute.InitItemAdapter(StandardItemAdapter.CreateInstance(attribute.ModelType));
+                    attribute.InitItemAdapter(StandardItemAdapter.CreateInstance(attribute.NestedModelType));
                 }
             }
         }
@@ -119,7 +120,7 @@ namespace Sitecore.ItemAdapter
                 if (!property.FieldModelAttribute.CheckType(property.PropertyInfo.PropertyType))
                 {
                     throw new Exception(string.Format(
-                        "Invalid Adapter Property Attribute - Model: {0}, Property: {1}, Type: {2}, Expected Type: {3}",
+                        "Invalid Adapter Property Attribute - Model: {0}, Model Type: {1}, Property Type: {2}, Expected Type: {3}",
                         typeof(TModel).FullName,
                         property.PropertyInfo.Name,
                         property.PropertyInfo.PropertyType.FullName,
@@ -168,6 +169,24 @@ namespace Sitecore.ItemAdapter
         public static void GetChildren(TModel model, Item item)
         {
             SetChildrenProperty(model, item);
+        }
+
+        public static void SaveModel(TModel model, Item item)
+        {
+            item.Editing.BeginEdit();
+
+            foreach (ItemAdapterModelProperty property in _properties)
+            {
+                object propertyValue = property.PropertyInfo.GetValue(model, null);
+                if (propertyValue != null)
+                {
+                    object fieldValue = property.FieldModelAttribute.SetFieldValue(
+                        item,
+                        property.PropertyInfo.PropertyType,
+                        propertyValue);
+                }
+            }
+            item.Editing.EndEdit();
         }
 
         private static void SetChildrenProperty(TModel result, Item item)

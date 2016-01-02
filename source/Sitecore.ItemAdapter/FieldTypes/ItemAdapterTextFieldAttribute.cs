@@ -46,6 +46,13 @@ namespace Sitecore.ItemAdapter.FieldTypes
         {
             return typeof (string);
         }
+
+        internal override object SetFieldValue(Item item, Type propertyType, object propertyValue)
+        {
+            string stringValue = propertyValue.ToString();
+            item.Fields[FieldId].SetValue(stringValue, false);
+            return stringValue;
+        }
     }
     
 

@@ -34,7 +34,7 @@ namespace Sitecore.ItemAdapter.FieldTypes
         public abstract bool CheckType(Type propertyType);
 
         public abstract Type ExpectedType();
-
+        internal abstract object SetFieldValue(Item item, Type propertyType, object propertyValue);
     }
 
     

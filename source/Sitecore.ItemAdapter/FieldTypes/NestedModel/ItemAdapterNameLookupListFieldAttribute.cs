@@ -22,26 +22,37 @@ namespace Sitecore.ItemAdapter.FieldTypes.NestedModel
             SortedList<string, IItemAdapterModel> result = new SortedList<string, IItemAdapterModel>();
             foreach (var kvp in items)
             {
-                result.Add(kvp.Key, (IItemAdapterModel)GetModel(kvp.Value, ModelType));
+                result.Add(kvp.Key, (IItemAdapterModel)GetModel(kvp.Value, NestedModelType));
             }
             return result;
         }
 
         public override bool CheckType(Type propertyType)
         {
-            if (propertyType == ExpectedType())
+            if (propertyType.IsGenericType)
             {
-                return true;
-            }
-            else
-            {
+                var genericUnderlyingType = propertyType.GetGenericArguments().ElementAt(1);
+                if (genericUnderlyingType != null
+                    && (genericUnderlyingType == ExpectedInterface()
+                        || genericUnderlyingType.GetInterfaces().Any(i => i == ExpectedInterface()))
+                )
+                {
+                    return true;
+                }
                 return false;
             }
+
+            return false;
         }
 
-        public override Type ExpectedType()
+        internal override object SetFieldValue(Item item, Type propertyType, object propertyValue)
         {
-            return typeof(SortedList<string, IItemAdapterModel>);
+            throw new NotImplementedException();
         }
+
+        //public override Type ExpectedType()
+        //{
+        //    return typeof(SortedList<string, IItemAdapterModel>);
+        //}
     }
 }

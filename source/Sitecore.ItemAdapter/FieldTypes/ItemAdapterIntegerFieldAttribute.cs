@@ -39,5 +39,9 @@ namespace Sitecore.ItemAdapter.FieldTypes
             return typeof(Nullable<int>);
         }
 
+        internal override object SetFieldValue(Item item, Type propertyType, object propertyValue)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

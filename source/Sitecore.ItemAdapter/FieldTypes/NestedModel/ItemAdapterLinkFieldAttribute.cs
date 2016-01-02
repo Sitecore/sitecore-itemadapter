@@ -11,7 +11,7 @@ namespace Sitecore.ItemAdapter.FieldTypes.NestedModel
 {
     public class ItemAdapterLinkFieldAttribute : ItemAdapterNestedModelFieldAttribute
     {
-        public ItemAdapterLinkFieldAttribute(string fieldId, Type modelType) : base(fieldId, modelType)
+        public ItemAdapterLinkFieldAttribute(string fieldId, Type nestedModelType) : base(fieldId, nestedModelType)
         {
         }
 
@@ -25,6 +25,10 @@ namespace Sitecore.ItemAdapter.FieldTypes.NestedModel
             return GetModel(link, propertyType);
 
         }
-        
+
+        internal override object SetFieldValue(Item item, Type propertyType, object propertyValue)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

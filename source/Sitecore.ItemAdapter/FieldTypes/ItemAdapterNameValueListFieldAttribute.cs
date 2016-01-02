@@ -37,5 +37,10 @@ namespace Sitecore.ItemAdapter.FieldTypes
         {
             return typeof(SortedList<string, string>);
         }
+
+        internal override object SetFieldValue(Item item, Type propertyType, object propertyValue)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -55,13 +55,21 @@ namespace Sitecore.ItemAdapter.Sample.Models
         [ItemAdapterLinkField("{340D1B43-ECA6-4567-8B02-500C01ADBE02}", typeof(ItemAdapterModel))]
         public ItemAdapterModel Link { get; set; }
 
+        //[ItemAdapterExtendedProperty]
+        //[ItemAdapterMultilistField("{44B8C8E0-D6E7-44BF-BC3F-3BDDEAD90A74}", typeof(ItemAdapterModel))]
+        //public IItemAdapterModel[] MultiList1 { get; set; }
+        
         [ItemAdapterExtendedProperty]
         [ItemAdapterMultilistField("{44B8C8E0-D6E7-44BF-BC3F-3BDDEAD90A74}", typeof(ItemAdapterModel))]
-        public List<ItemAdapterModel> MultiList { get; set; }
+        public IEnumerable<IItemAdapterModel> MultiList2 { get; set; }
+        
+        [ItemAdapterExtendedProperty]
+        [ItemAdapterMultilistField("{44B8C8E0-D6E7-44BF-BC3F-3BDDEAD90A74}", typeof(ItemAdapterModel))]
+        public List<IItemAdapterModel> MultiList3 { get; set; }
 
         [ItemAdapterExtendedProperty]
         [ItemAdapterMultilistField("{E5DE474C-04CB-41F8-B5F8-3C171EE5E8FE}", typeof(ItemAdapterModel))]
-        public List<ItemAdapterModel> Checklist { get; set; }
+        public List<IItemAdapterModel> Checklist { get; set; }
 
         [ItemAdapterExtendedProperty]
         [ItemAdapterFileUrlField("{A71C0579-8E0D-4658-92C9-03A7A260F383}")]
@@ -70,10 +78,10 @@ namespace Sitecore.ItemAdapter.Sample.Models
         [ItemAdapterExtendedProperty]
         [ItemAdapterNameValueListField("{16075611-9204-4F76-A25A-871E24323550}")]
         public SortedList<string,string> NameValueList { get; set; }
-        
-        //[ItemAdapterExtendedProperty]
-        //[ItemAdapterNameLookupListField("{088D04CC-F860-41BE-8009-A51BB9037FB8}", typeof(IItemAdapter<ItemAdapterModel>))]
-        //public SortedList<string, IItemAdapterModel> NameLookupList { get; set; }
+
+        [ItemAdapterExtendedProperty]
+        [ItemAdapterNameLookupListField("{088D04CC-F860-41BE-8009-A51BB9037FB8}", typeof(ItemAdapterModel))]
+        public SortedList<string, IItemAdapterModel> NameLookupList { get; set; }
 
     }
 }
