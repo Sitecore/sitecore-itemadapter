@@ -30,20 +30,32 @@ namespace Sitecore.ItemAdapter
         public StandardItemAdapter()
         {
         }
+
+        public StandardItemAdapter(int depth)
+        {
+            _depth = depth;
+        }
+
+        private readonly int  _depth = 1;
         
         public static StandardItemAdapter<TModel> CreateAdapterInstance()
         {
             return new StandardItemAdapter<TModel>();
         }
-
-        public IItemAdapterModel GetModel(Item item, int depth)
+        
+        public IItemAdapterModel LoadModel(Item item)
         {
-            if (depth < 1)
+            return LoadModel(item, _depth);
+        }
+
+        public IItemAdapterModel LoadModel(Item item, int depth)
+        {
+            if (depth < 0)
             {
                 TModel result = new TModel();
                 result.SetId(item.ID.ToGuid());
             }
-            return GetNewModel(item, depth);
+            return CreateModelInstance(item, depth);
         }
         
         private static readonly ItemAdapterModelAttribute _modelAttribute;
@@ -51,8 +63,7 @@ namespace Sitecore.ItemAdapter
         private static readonly ItemAdapterModelProperty[] _extendedProperties;
 
         private static readonly IItemAdapter _childItemAdapter;
-
-
+        
         static StandardItemAdapter()
         {
             System.Attribute[] attrs = System.Attribute.GetCustomAttributes(typeof(TModel), false); 
@@ -66,27 +77,15 @@ namespace Sitecore.ItemAdapter
             {
                 throw new Exception("Invalid StandardItemAdapter<TModel> model type. Implementing class must declare [AdapterItemModel] attribute with Child Type.", null);
             }
-            _childItemAdapter =
-                GetChildItemAdapter();
-
-
+            _childItemAdapter = CreateChildItemAdapter();
+            
             var modelProperties = typeof (TModel).GetProperties();
 
-            var standardFieldProperties = modelProperties.Where(
-                (prop) => Attribute.IsDefined(prop, typeof (ItemAdapterFieldAttribute), true)
-                          && !Attribute.IsDefined(prop, typeof (ItemAdapterExtendedPropertyAttribute), true));
+            var standardFieldProperties = GetStandardFieldProperties(modelProperties);
+            _properties = standardFieldProperties;
 
-            var extendedFieldProperties = modelProperties.Where(
-                (prop) => Attribute.IsDefined(prop, typeof (ItemAdapterFieldAttribute), true)
-                          && Attribute.IsDefined(prop, typeof (ItemAdapterExtendedPropertyAttribute), true));
-
-            _properties = standardFieldProperties.Select((prop) => new ItemAdapterModelProperty(
-                prop, 
-                Attribute.GetCustomAttribute(prop, typeof(ItemAdapterFieldAttribute)) as ItemAdapterFieldAttribute)).ToArray();
-
-            _extendedProperties = extendedFieldProperties.Select((prop) => new ItemAdapterModelProperty(
-                prop, 
-                Attribute.GetCustomAttribute(prop, typeof(ItemAdapterFieldAttribute)) as ItemAdapterFieldAttribute)).ToArray();
+            var extendedFieldProperties = GetExtendedFieldProperties(modelProperties);
+            _extendedProperties = extendedFieldProperties;
 
             CheckProperties(_properties);
             CheckProperties(_extendedProperties);
@@ -95,10 +94,102 @@ namespace Sitecore.ItemAdapter
             LoadPropertyNestedItemAdapters(_extendedProperties);
 
         }
+        public static TModel CreateModelInstance(Item item, int depth)
+        {
+            if (_modelAttribute.TemplateId != (ID)null && !_modelAttribute.TemplateId.Equals(item.TemplateID))
+            {
+                return default(TModel);
+            }
 
-        private static IItemAdapter GetChildItemAdapter()
+            TModel result = new TModel();
+            result.SetId(item.ID.ToGuid());
+
+            SetStandardProperties(result, item);
+
+            SetFieldProperties(item, depth, result);
+
+            result.Loaded();
+            return result;
+        }
+
+
+        public static TModel CreateExtendedModelInstance(Item item, int depth)
+        {
+            TModel model = CreateModelInstance(item, depth);
+            SetExtendedModel(model, item, depth);
+            SetModelChildren(model, item, depth);
+            return model;
+        }
+
+        public static void SetExtendedModel(TModel model, Item item, int depth)
+        {
+            SetExtendedProperties(model, item, depth);
+        }
+
+        public static void SetModelChildren(TModel model, Item item, int depth)
+        {
+            SetChildrenProperty(model, item, depth);
+        }
+
+        public static void SaveModel(TModel model, Item item)
+        {
+            item.Editing.BeginEdit();
+            UpdateFieldValues(model, item);
+            item.Editing.EndEdit();
+        }
+
+
+        public static IEnumerable<TModel> GetEnumerator(Data.Items.Item[] items, int depth)
+        {
+            return items.Select(c =>
+            {
+                int d = depth;
+                return CreateModelInstance(c, depth);
+            });
+        }
+
+        private static IItemAdapter CreateChildItemAdapter()
         {
             return StandardItemAdapter.CreateInstance(_modelAttribute.ChildType);
+        }
+
+
+        private static void SetFieldProperties(Item item, int depth, TModel result)
+        {
+            foreach (ItemAdapterModelProperty property in _properties)
+            {
+                object fieldValue = property.FieldModelAttribute.GetFieldValue(
+                    item,
+                    property.PropertyInfo.PropertyType,
+                    depth);
+
+                property.PropertyInfo.SetValue(result, fieldValue, null);
+            }
+        }
+
+
+        private static ItemAdapterModelProperty[] GetExtendedFieldProperties(PropertyInfo[] modelProperties)
+        {
+            var extendedFieldAttributes = modelProperties.Where(
+                (prop) => Attribute.IsDefined(prop, typeof (ItemAdapterFieldAttribute), true)
+                          && Attribute.IsDefined(prop, typeof (ItemAdapterExtendedPropertyAttribute), true));
+            var extendedFieldProperties = extendedFieldAttributes.Select(
+                (prop) => new ItemAdapterModelProperty(
+                    prop,
+                    Attribute.GetCustomAttribute(prop, typeof (ItemAdapterFieldAttribute)) as ItemAdapterFieldAttribute)).ToArray();
+            return extendedFieldProperties;
+        }
+
+        private static ItemAdapterModelProperty[] GetStandardFieldProperties(PropertyInfo[] modelProperties)
+        {
+            var standardFieldAttributes = modelProperties.Where(
+                (prop) => Attribute.IsDefined(prop, typeof (ItemAdapterFieldAttribute), true)
+                          && !Attribute.IsDefined(prop, typeof (ItemAdapterExtendedPropertyAttribute), true));
+            var standardFieldProperties = standardFieldAttributes.Select(
+                (prop) => new ItemAdapterModelProperty(
+                    prop,
+                    Attribute.GetCustomAttribute(prop, typeof (ItemAdapterFieldAttribute)) as ItemAdapterFieldAttribute)).ToArray();
+            return standardFieldProperties;
         }
 
         private static void LoadPropertyNestedItemAdapters(ItemAdapterModelProperty[] properties)
@@ -130,69 +221,7 @@ namespace Sitecore.ItemAdapter
                 }
             }
         }
-
-        public static TModel GetNewModel(Item item, int depth)
-        {
-            if (_modelAttribute.TemplateId != (ID)null && !_modelAttribute.TemplateId.Equals(item.TemplateID))
-            {
-                return default(TModel);
-            }
-
-            TModel result = new TModel();
-            result.SetId(item.ID.ToGuid());
-
-            SetStandardProperties(result, item);
-            
-            foreach (ItemAdapterModelProperty property in _properties)
-            {
-                object fieldValue = property.FieldModelAttribute.GetFieldValue(
-                    item,
-                    property.PropertyInfo.PropertyType,
-                    depth);
-
-                property.PropertyInfo.SetValue(result, fieldValue, null); 
-            }
-
-            result.Loaded();
-            return result;
-        }
-
-        public static TModel GetExtendedModel(Item item, int depth)
-        {
-            TModel model = GetNewModel(item, depth);
-            GetExtendedModel(model, item, depth);
-            GetChildren(model, item, depth);
-            return model;
-        }
-
-        public static void GetExtendedModel(TModel model, Item item, int depth)
-        {
-            SetExtendedProperties(model, item, depth);
-        }
-
-        public static void GetChildren(TModel model, Item item, int depth)
-        {
-            SetChildrenProperty(model, item, depth);
-        }
-
-        public static void SaveModel(TModel model, Item item)
-        {
-            item.Editing.BeginEdit();
-
-            foreach (ItemAdapterModelProperty property in _properties)
-            {
-                object propertyValue = property.PropertyInfo.GetValue(model, null);
-                if (propertyValue != null)
-                {
-                    object fieldValue = property.FieldModelAttribute.SetFieldValue(
-                        item,
-                        property.PropertyInfo.PropertyType,
-                        propertyValue);
-                }
-            }
-            item.Editing.EndEdit();
-        }
-
+        
         private static void SetChildrenProperty(TModel result, Item item, int depth)
         {
             if (result == null)
@@ -204,7 +233,7 @@ namespace Sitecore.ItemAdapter
             Item[] itemChildren = item.GetChildren().ToArray();
             foreach (Item child in itemChildren)
             {
-                modelChildren.Add(_childItemAdapter.GetModel(child, --depth));
+                modelChildren.Add(_childItemAdapter.LoadModel(child, --depth));
             }
 
             result.Children = modelChildren;
@@ -232,11 +261,20 @@ namespace Sitecore.ItemAdapter
             }
         }
 
-        public static IEnumerable<TModel> GetEnumerator(Data.Items.Item[] items)
+        private static void UpdateFieldValues(TModel model, Item item)
         {
-            return items.Select(GetNewModel);
+            foreach (ItemAdapterModelProperty property in _properties)
+            {
+                object propertyValue = property.PropertyInfo.GetValue(model, null);
+                if (propertyValue != null)
+                {
+                    object fieldValue = property.FieldModelAttribute.SetFieldValue(
+                        item,
+                        property.PropertyInfo.PropertyType,
+                        propertyValue);
+                }
+            }
         }
-
     }
 
 }

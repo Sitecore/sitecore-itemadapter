@@ -27,7 +27,7 @@ namespace Sitecore.ItemAdapter.FieldTypes.NestedModel
 
         protected virtual IItemAdapterModel GetModel(Item item, Type propertyType, int depth)
         {
-            return Adapter.GetModel(item, --depth);
+            return Adapter.LoadModel(item, --depth);
         }
         
         public override bool CheckType(Type propertyType)

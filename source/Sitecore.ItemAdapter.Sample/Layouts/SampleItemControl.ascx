@@ -16,7 +16,7 @@
 
      void Page_Load(object sender, System.EventArgs e)
      {
-         ItemModel = StandardItemAdapter<SampleItem>.GetExtendedModel(Sitecore.Context.Item);
+         ItemModel = StandardItemAdapter<SampleItem>.CreateExtendedModelInstance(Sitecore.Context.Item, 1);
      }
 
  </script>

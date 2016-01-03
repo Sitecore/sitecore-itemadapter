@@ -11,6 +11,8 @@ namespace Sitecore.ItemAdapter
 
     public interface IItemAdapter
     {
-        IItemAdapterModel GetModel(Item item, int depth);
+        IItemAdapterModel LoadModel(Item item);
+
+        IItemAdapterModel LoadModel(Item item, int depth);
     }
 }

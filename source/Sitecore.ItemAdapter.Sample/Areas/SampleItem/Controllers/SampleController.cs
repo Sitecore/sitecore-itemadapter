@@ -15,9 +15,10 @@ namespace Sitecore.ItemAdapter.Sample.Areas.SampleItem.Controllers
         // GET: SampleItem/Sitecore
         public ActionResult Index()
         {
+            var sampleItemTemplateId = Models.SampleItem.SampleItemTemplateId;
             Item item = Context.Database.GetItem(new ID(contentItemId));
-            Item[] contentChildren = item.Children.Where(c => c.TemplateID.Guid.Equals(Models.SampleItem.SampleItemTemplateId)).ToArray();
-            var sampleItemList = StandardItemAdapter<Models.SampleItem>.GetEnumerator(contentChildren);
+            Item[] contentChildren = item.Children.Where(c => c.TemplateID.Equals(new ID(new Guid(sampleItemTemplateId)))).ToArray();
+            var sampleItemList = StandardItemAdapter<Models.SampleItem>.GetEnumerator(contentChildren, 1);
             return Json(sampleItemList, JsonRequestBehavior.AllowGet);
         }
 
@@ -25,7 +26,7 @@ namespace Sitecore.ItemAdapter.Sample.Areas.SampleItem.Controllers
         public ActionResult Details(Guid id)
         {
             Sitecore.Data.Items.Item item = Context.Database.GetItem(new ID(id));
-            var sampleItem = StandardItemAdapter<Models.SampleItem>.GetExtendedModel(item, 1);
+            var sampleItem = StandardItemAdapter<Models.SampleItem>.CreateExtendedModelInstance(item, 1);
             return Json(sampleItem, JsonRequestBehavior.AllowGet);
         }
 
@@ -37,7 +38,7 @@ namespace Sitecore.ItemAdapter.Sample.Areas.SampleItem.Controllers
             try
             {
                 Sitecore.Data.Items.Item item = Context.Database.GetItem(new ID(id));
-                var sampleItem = StandardItemAdapter<Models.SampleItem>.GetExtendedModel(item, 1);
+                var sampleItem = StandardItemAdapter<Models.SampleItem>.CreateExtendedModelInstance(item, 1);
                 var updateItem = new Models.SampleItem();
                 updateItem.SetId(id);
 
@@ -51,9 +52,7 @@ namespace Sitecore.ItemAdapter.Sample.Areas.SampleItem.Controllers
                 }
 
                 StandardItemAdapter<Models.SampleItem>.SaveModel(updateItem, item);
-
                 return RedirectToAction("Details", new { @id = id });
-
             }
             catch
             {
@@ -62,20 +61,20 @@ namespace Sitecore.ItemAdapter.Sample.Areas.SampleItem.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditModel(Guid id, [System.Web.Http.FromBody]Models.SampleItem model)
+        public ActionResult EditModel(Guid id, [System.Web.Http.FromBody]Models.SampleItem postModel)
         {
             Sitecore.Data.Items.Item item = Context.Database.GetItem(new ID(id));
-            var sampleItem = StandardItemAdapter<Models.SampleItem>.GetExtendedModel(item, 1);
+            var sampleItem = StandardItemAdapter<Models.SampleItem>.CreateExtendedModelInstance(item, 1);
             var updateItem = new Models.SampleItem();
             updateItem.SetId(id);
 
-            if (model.Title != null)
+            if (postModel.Title != null)
             {
-                updateItem.Title = model.Title;
+                updateItem.Title = postModel.Title;
             }
-            if (model.Text != null)
+            if (postModel.Text != null)
             {
-                updateItem.Text = model.Text;
+                updateItem.Text = postModel.Text;
             }
 
             StandardItemAdapter<Models.SampleItem>.SaveModel(updateItem, item);

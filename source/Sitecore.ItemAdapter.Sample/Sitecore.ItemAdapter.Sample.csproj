@@ -64,6 +64,10 @@
       <HintPath>..\packages\Sitecore.Kernel.8.1.3.0\lib\net45\Sitecore.Logging.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Sitecore.Mvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Sitecore.Mvc.WebRole.1.0.2.0\lib\net45\Sitecore.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="sitecore.nexus, Version=1.0.0.4404, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Sitecore.Host.8.1.20.0\lib\net45\sitecore.nexus.dll</HintPath>
       <Private>True</Private>
