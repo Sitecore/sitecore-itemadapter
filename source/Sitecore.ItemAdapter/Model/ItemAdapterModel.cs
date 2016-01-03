@@ -17,24 +17,31 @@ namespace Sitecore.ItemAdapter.Model
         {
             Version = 0;
             Id = Guid.Empty;
+            _loaded = false;
+            _extended = false;
         }
 
-        public void SetId(Guid id)
+        public void Initialize(Guid id)
         {
             if (!Guid.Empty.Equals(Id)) { throw new InvalidOperationException(); }
             Id = id;
         }
 
-        private bool _loaded = false;
+        private bool _loaded;
+        private bool _extended;
 
-        public void Loaded()
+        public void Loaded(bool extended)
         {
+            if (extended)
+            {
+                _extended = true;
+            }
             _loaded = true;
         }
 
-        public bool IsLoaded()
+        public bool IsLoaded(bool extended)
         {
-            return _loaded;
+            return (extended) ? _extended : _loaded;
         }
 
         public const string DisplayNameFieldId = "{B5E02AD9-D56F-4C41-A065-A133DB87BDEB}";

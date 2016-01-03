@@ -53,7 +53,7 @@ namespace Sitecore.ItemAdapter
             if (depth < 0)
             {
                 TModel result = new TModel();
-                result.SetId(item.ID.ToGuid());
+                result.Initialize(item.ID.ToGuid());
             }
             return CreateModelInstance(item, depth);
         }
@@ -101,15 +101,15 @@ namespace Sitecore.ItemAdapter
                 return default(TModel);
             }
 
-            TModel result = new TModel();
-            result.SetId(item.ID.ToGuid());
+            TModel model = new TModel();
+            model.Initialize(item.ID.ToGuid());
 
-            SetStandardProperties(result, item);
+            SetStandardProperties(model, item);
 
-            SetFieldProperties(item, depth, result);
+            SetFieldProperties(item, depth, model);
 
-            result.Loaded();
-            return result;
+            model.Loaded();
+            return model;
         }
 
 
@@ -124,6 +124,7 @@ namespace Sitecore.ItemAdapter
         public static void SetExtendedModel(TModel model, Item item, int depth)
         {
             SetExtendedProperties(model, item, depth);
+            model.Loaded(true);
         }
 
         public static void SetModelChildren(TModel model, Item item, int depth)

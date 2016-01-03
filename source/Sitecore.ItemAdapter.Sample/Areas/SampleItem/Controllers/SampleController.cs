@@ -40,7 +40,7 @@ namespace Sitecore.ItemAdapter.Sample.Areas.SampleItem.Controllers
                 Sitecore.Data.Items.Item item = Context.Database.GetItem(new ID(id));
                 var sampleItem = StandardItemAdapter<Models.SampleItem>.CreateExtendedModelInstance(item, 1);
                 var updateItem = new Models.SampleItem();
-                updateItem.SetId(id);
+                updateItem.Initialize(id);
 
                 if (collection["Title"] != null)
                 {
@@ -66,7 +66,7 @@ namespace Sitecore.ItemAdapter.Sample.Areas.SampleItem.Controllers
             Sitecore.Data.Items.Item item = Context.Database.GetItem(new ID(id));
             var sampleItem = StandardItemAdapter<Models.SampleItem>.CreateExtendedModelInstance(item, 1);
             var updateItem = new Models.SampleItem();
-            updateItem.SetId(id);
+            updateItem.Initialize(id);
 
             if (postModel.Title != null)
             {

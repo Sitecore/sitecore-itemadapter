@@ -8,13 +8,13 @@ namespace Sitecore.ItemAdapter.Model
 {
     public interface IItemAdapterModel
     {
-        bool IsLoaded();
-
-        void Loaded();
-        
-        void SetId(Guid id);
-        
         Guid Id { get; }
+
+        void Initialize(Guid id);
+        
+        void Loaded(bool extended = false);
+
+        bool IsLoaded(bool extended);
 
         string Name { get; set; }
 
